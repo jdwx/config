@@ -1,0 +1,21 @@
+{
+  "name": "jdwx/config",
+  "description": "A simple configuration library for PHP.",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "JDWX\\Config\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=8.2",
+    "jdwx/param": "^1.0"
+  },
+  "optional": {
+    "ext-yaml": "*"
+  },
+  "require-dev": {
+    "jetbrains/phpstorm-attributes": "^1.0",
+    "phpunit/phpunit": "^9.6"
+  }
+}
