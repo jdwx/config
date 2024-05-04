@@ -44,9 +44,9 @@ CFG;
 
 $defaults = IniParser::fromString( $stDefaults );
 $cfg = ConfigDB::fromFile( __DIR__ . '/example.ini', $defaults );
-echo "[foo]bar = ", $cfg->get( 'foo', 'bar' ), "\n";
-echo "[foo]qux = ", $cfg->get( 'foo', 'qux' ), "\n";
-echo "[foo]grault = ", $cfg->get( 'foo', 'grault' ), "\n";
+echo "[foo]bar = ", $cfg->get( 'foo', 'bar' )->asString(), "\n";
+echo "[foo]qux = ", $cfg->get( 'foo', 'qux' )->asInt(), "\n";
+echo "[foo]grault = ", $cfg->get( 'foo', 'grault' )->asString(), "\n";
 ```
 
 ## Stability
