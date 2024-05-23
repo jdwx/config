@@ -12,7 +12,7 @@ use JDWX\Param\IParameter;
 use JDWX\Param\Parameter;
 
 
-class ConfigDB {
+class ConfigDB implements IConfig {
 
 
     private array $rConfig;
@@ -35,7 +35,7 @@ class ConfigDB {
     public function get( ... $i_rstKeys ) : IParameter {
         $r = $this->getBranch( $i_rstKeys, true );
         if ( ! $r instanceof IParameter ) {
-            throw new KeyIsSectionException( static::soFar( $i_rstKeys ) );
+            throw new KeyIsSectionException( self::soFar( $i_rstKeys ) );
         }
         return $r;
     }
@@ -45,13 +45,13 @@ class ConfigDB {
     public function getSection( ... $i_rstKeys ) : array {
         $r = $this->getBranch( $i_rstKeys, true );
         if ( ! is_array( $r ) ) {
-            throw new KeyNotSectionException( static::soFar( $i_rstKeys ) );
+            throw new KeyNotSectionException( self::soFar( $i_rstKeys ) );
         }
         $rOut = [];
         foreach ( $r as $stKey => $x ) {
             # We don't allow you to pull sections if they contain subsections.
             if ( ! $x instanceof IParameter ) {
-                throw new KeyIsSectionException( static::soFar( $i_rstKeys ) . "[{$stKey}] is a subsection" );
+                throw new KeyIsSectionException( self::soFar( $i_rstKeys ) . "[{$stKey}] is a subsection" );
             }
             $rOut[ $stKey ] = $x;
         }
@@ -96,7 +96,7 @@ class ConfigDB {
     public function testGet( ... $i_rstKeys ) : ?IParameter {
         $r = $this->getBranch( $i_rstKeys, false );
         if ( is_array( $r ) ) {
-            throw new KeyIsSectionException( static::soFar( $i_rstKeys ) );
+            throw new KeyIsSectionException( self::soFar( $i_rstKeys ) );
         }
         return $r;
     }
@@ -143,11 +143,11 @@ class ConfigDB {
         foreach ( $i_rstKeys as $stKey ) {
             $rSoFar[] = $stKey;
             if ( ! is_array( $r ) ) {
-                throw new KeyNotSectionException( static::soFar( $rSoFar ) );
+                throw new KeyNotSectionException( self::soFar( $rSoFar ) );
             }
             if ( ! array_key_exists( $stKey, $r ) ) {
                 if ( $i_bMissingIsFatal ) {
-                    throw new KeyNotFoundException( static::soFar( $rSoFar ) );
+                    throw new KeyNotFoundException( self::soFar( $rSoFar ) );
                 }
                 return null;
             }
