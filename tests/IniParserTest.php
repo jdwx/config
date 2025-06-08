@@ -21,7 +21,6 @@ EOF
         );
         $parser = new IniParser( $rdr );
         $r = $parser->parse();
-        self::assertIsArray( $r );
         self::assertCount( 2, $r );
         self::assertSame( 'bar', $r[ 'foo' ]->asString() );
         self::assertSame( 'qux', $r[ 'baz' ]->asString() );
@@ -32,7 +31,6 @@ EOF
         $rdr = new FileReader( __DIR__ . '/data/test.ini' );
         $parser = new IniParser( $rdr );
         $r = $parser->parse();
-        self::assertIsArray( $r );
         self::assertCount( 2, $r );
         self::assertArrayHasKey( 'foo', $r );
         self::assertArrayHasKey( 'qux', $r );
@@ -54,7 +52,6 @@ EOF
         );
         $parser = new IniParser( $rdr );
         $r = $parser->parse();
-        self::assertIsArray( $r );
         self::assertCount( 2, $r );
         self::assertArrayHasKey( 'foo', $r );
         self::assertArrayHasKey( 'baz', $r );
@@ -68,7 +65,6 @@ EOF
     public function testParseForNull() : void {
         $parser = IniParser::fromString( "foo=null\n" );
         $r = $parser->parse();
-        self::assertIsArray( $r );
         self::assertCount( 1, $r );
         self::assertTrue( $r[ 'foo' ]->isNull() );
     }
@@ -77,7 +73,6 @@ EOF
     public function testParseForQuotedNull() : void {
         $parser = IniParser::fromString( "foo=\"null\"\n", false );
         $r = $parser->parse();
-        self::assertIsArray( $r );
         self::assertCount( 1, $r );
         self::assertSame( 'null', $r[ 'foo' ]->asString() );
     }

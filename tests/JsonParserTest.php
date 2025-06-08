@@ -13,7 +13,6 @@ class JsonParserTest extends TestCase {
 
         $r = JsonParser::fromString( '{"foo": {"bar": "baz"}, "qux": {"quux": "corge"}}' )->parse();
 
-        self::assertIsArray( $r );
         self::assertArrayHasKey( "foo", $r );
         self::assertArrayHasKey( "qux", $r );
         self::assertIsArray( $r[ "foo" ] );
@@ -34,7 +33,6 @@ class JsonParserTest extends TestCase {
 
     public function testParseForFile() : void {
         $r = JsonParser::fromFile( __DIR__ . "/data/test.json" )->parse();
-        self::assertIsArray( $r );
         self::assertArrayHasKey( "foo", $r );
         self::assertArrayHasKey( "qux", $r );
         self::assertIsArray( $r[ "foo" ] );
